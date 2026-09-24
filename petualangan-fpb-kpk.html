@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan FPB &amp; KPK — Media Pembelajaran Matematika SD</title>
+<style>
+/* ============================================================
+   MATHLAND — Petualangan FPB & KPK
+   Desain: kartun stiker, berwarna, ramah anak SD (tanpa emoji)
+   ============================================================ */
+:root{
+  --ink:#33304a;
+  --yellow:#FFD93D; --yellow-d:#F5B800;
+  --coral:#FF6B6B;  --coral-l:#FFE3E3;
+  --teal:#4ECDC4;   --teal-l:#D9F7F4;
+  --blue:#5DADE2;   --blue-l:#E1F0FB;
+  --green:#7ED957;  --green-l:#E7F9DC;
+  --purple:#B983FF; --purple-l:#F0E6FF;
+  --pink:#FF8FB1;   --pink-l:#FFE6EF;
+  --orange:#FFB03A;
+  --cream:#FFF9EC;
+  --paper:#FFFFFF;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Baloo 2','Fredoka','Comic Sans MS','Comic Neue','Trebuchet MS','Segoe UI',Verdana,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(180deg,#BDE8FF 0%,#DFF4FF 35%,#FFF6E0 100%);
+  min-height:100vh; overflow-x:hidden; font-size:17px; line-height:1.55;
+}
+::selection{background:var(--yellow);}
+
+/* ---------- Langit & awan dekoratif ---------- */
+.sky{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;}
+.cloud{position:absolute; width:140px; opacity:.95; animation:drift 46s ease-in-out infinite alternate;}
+.cloud svg{width:100%; height:auto;}
+.c1{top:70px; left:4%;}
+.c2{top:150px; right:8%; width:110px; animation-duration:58s;}
+.c3{top:40%; left:-2%; width:170px; opacity:.6; animation-duration:70s;}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(60px)}}
+
+/* ---------- Header ---------- */
+header.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding:10px 22px;
+  background:rgba(255,255,255,.92); backdrop-filter:blur(4px);
+  border-bottom:3px solid var(--ink);
+}
+.brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:1.35rem; letter-spacing:.5px;}
+.brand svg{width:34px; height:34px;}
+.brand .l2{color:var(--coral);}
+nav.navs{display:flex; gap:8px; margin-left:auto; flex-wrap:wrap;}
+.nav-btn{
+  font:inherit; font-weight:700; cursor:pointer;
+  border:3px solid var(--ink); border-radius:999px;
+  padding:7px 18px; background:#fff; color:var(--ink);
+  transition:transform .15s, background .15s;
+}
+.nav-btn:hover{transform:translateY(-2px);}
+.nav-btn.active{background:var(--yellow); box-shadow:3px 3px 0 var(--ink);}
+.sound-btn{
+  font:inherit; font-size:.85rem; font-weight:700; cursor:pointer;
+  border:3px solid var(--ink); border-radius:999px; padding:6px 14px;
+  background:var(--teal-l);
+}
+
+/* ---------- Layout halaman ---------- */
+main{max-width:1060px; margin:0 auto; padding:26px 18px 60px;}
+.page{display:none;}
+.page.active{display:block; animation:pageIn .45s ease;}
+@keyframes pageIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+.panel{
+  background:rgba(255,255,255,.78);
+  border:3px solid var(--ink); border-radius:30px;
+  box-shadow:7px 7px 0 rgba(51,48,74,.9);
+  padding:30px 30px 38px; position:relative; overflow:hidden;
+}
+h2.title{font-size:1.9rem; margin-bottom:6px; display:inline-block;}
+.title-under{height:8px; width:190px; margin:-2px 0 22px;
+  background:radial-gradient(circle at 4px 4px, var(--coral) 4px, transparent 5px);
+  background-size:16px 8px; border-radius:8px; opacity:.85;}
+.sub-lead{color:#5b5877; margin-bottom:22px;}
+
+/* ---------- Tombol ---------- */
+.btn{
+  font:inherit; font-weight:800; cursor:pointer; color:var(--ink);
+  border:3px solid var(--ink); border-radius:16px;
+  padding:10px 22px; background:#fff;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .12s, box-shadow .12s;
+}
+.btn:hover{transform:translate(-1px,-2px); box-shadow:5px 6px 0 var(--ink);}
+.btn:active{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink);}
+.btn:disabled{opacity:.55; cursor:not-allowed; transform:none; box-shadow:4px 4px 0 var(--ink);}
+.btn.big{font-size:1.05rem; padding:13px 26px;}
+.btn.yellow{background:var(--yellow);}
+.btn.teal{background:var(--teal); color:#073a37;}
+.btn.green{background:var(--green);}
+.btn.purple{background:var(--purple); color:#fff;}
+.btn.ghost{background:#fff;}
+.btn svg{width:18px; height:18px; vertical-align:-3px; margin-right:7px;}
+
+/* ---------- Beranda ---------- */
+.hero{display:grid; grid-template-columns:1.15fr .95fr; gap:26px; align-items:center; padding-top:38px;}
+.badge{
+  display:inline-block; background:var(--purple-l); border:2.5px solid var(--ink);
+  border-radius:999px; padding:5px 16px; font-weight:700; font-size:.85rem; margin-bottom:16px;
+}
+.hero h1{font-size:2.9rem; line-height:1.15; margin-bottom:14px; letter-spacing:.5px;}
+.hl-y{background:var(--yellow); border:2.5px solid var(--ink); border-radius:12px; padding:0 12px; display:inline-block; transform:rotate(-2deg); box-shadow:3px 3px 0 var(--ink);}
+.hl-g{background:var(--teal); border:2.5px solid var(--ink); border-radius:12px; padding:0 12px; display:inline-block; transform:rotate(2deg); box-shadow:3px 3px 0 var(--ink); color:#063d3a;}
+.lead{font-size:1.08rem; color:#514e6e; margin-bottom:22px; max-width:46ch;}
+.hero-btns{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:26px;}
+.mini-cards{display:flex; gap:12px; flex-wrap:wrap;}
+.mini-card{
+  background:#fff; border:3px solid var(--ink); border-radius:16px; padding:10px 14px;
+  font-size:.85rem; font-weight:700; display:flex; align-items:center; gap:9px;
+  box-shadow:3px 3px 0 var(--ink); cursor:pointer; transition:transform .15s;
+}
+.mini-card:hover{transform:translateY(-3px) rotate(-1deg);}
+.dot-ic{width:14px; height:14px; border-radius:50%; border:2.5px solid var(--ink); flex:none;}
+.hero-art{display:flex; justify-content:center;}
+.hero-art svg{width:100%; max-width:430px; height:auto;}
+.spin{transform-origin:60px 60px; animation:spin 26s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.twinkle{animation:tw 2.6s ease-in-out infinite;}
+.tw2{animation-delay:1.3s;}
+@keyframes tw{0%,100%{opacity:.25; transform:scale(.85);}50%{opacity:1; transform:scale(1.1);}}
+
+/* ---------- Kartu materi ---------- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:20px;}
+.card{
+  background:#fff; border:3px solid var(--ink); border-radius:22px;
+  box-shadow:5px 5px 0 var(--ink); padding:20px 20px 24px; position:relative;
+}
+.card h3{font-size:1.22rem; margin:8px 0 10px;}
+.card p{color:#514e6e; font-size:.96rem; margin-bottom:10px;}
+.tag{
+  display:inline-block; font-size:.75rem; font-weight:800; letter-spacing:1px;
+  border:2.5px solid var(--ink); border-radius:999px; padding:3px 12px; color:var(--ink);
+}
+.tag.kuning{background:var(--yellow);} .tag.toska{background:var(--teal);}
+.tag.merah{background:var(--coral); color:#fff;} .tag.ungu{background:var(--purple); color:#fff;}
+.tag.ijo{background:var(--green);} .tag.biru{background:var(--blue); color:#fff;}
+.example{
+  background:var(--cream); border:2.5px dashed var(--ink); border-radius:16px;
+  padding:12px 14px; margin-top:8px; font-size:.93rem;
+}
+.example b.ex-title{display:block; font-size:.78rem; letter-spacing:1px; color:#8a86a8; margin-bottom:8px;}
+.chips{display:flex; flex-wrap:wrap; gap:7px; align-items:center;}
+.chip{
+  background:#fff; border:2.5px solid var(--ink); border-radius:12px;
+  padding:3px 11px; font-weight:800; font-size:.9rem; display:inline-block;
+}
+.chip.a{background:var(--green-l);} .chip.b{background:#FFEEDA;}
+.chip.hl{background:var(--yellow); transform:scale(1.12); box-shadow:2px 2px 0 var(--ink);}
+.chip.pp1{background:#FFF0B3;} .chip.pp2{background:#DDF5C8;} .chip.pp3{background:#D7EBFF;}
+.chip.pop{animation:pop .3s ease;}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.chip.common{background:var(--yellow); box-shadow:2px 2px 0 var(--ink); animation:pop .4s ease;}
+.arrow-sep{font-weight:800; color:#b3afc9;}
+.note-klu{margin-top:10px; font-size:.85rem; color:#8a86a8;}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.use-half{border:2.5px solid var(--ink); border-radius:16px; padding:14px; text-align:left;}
+.use-half.kpk{background:var(--teal-l);}
+.use-half.fpb{background:var(--pink-l);}
+.use-half h4{display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:1.02rem;}
+.use-half ul{margin-left:20px; font-size:.9rem; color:#514e6e;}
+.use-half li{margin-bottom:3px;}
+.ic{width:30px; height:30px; flex:none;}
+.callout{
+  grid-column:1/-1; background:var(--yellow); border:3px solid var(--ink); border-radius:20px;
+  box-shadow:5px 5px 0 var(--ink); padding:18px 22px; display:flex; gap:16px; align-items:center;
+}
+.callout svg{width:44px; height:44px; flex:none;}
+.callout b{font-size:1.05rem;}
+.tree-box{display:flex; justify-content:center; margin-top:6px;}
+.tree-box svg{max-width:340px; width:100%; height:auto;}
+.formula{
+  font-family:Georgia,serif; font-style:italic; background:#fff; border:2.5px solid var(--ink);
+  border-radius:10px; padding:2px 10px; display:inline-block; font-weight:700;
+}
+
+/* ---------- Halaman simulasi ---------- */
+.sim-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+.sim-tab{
+  font:inherit; font-weight:800; cursor:pointer;
+  border:3px solid var(--ink); border-radius:14px; padding:9px 20px;
+  background:#fff; box-shadow:3px 3px 0 var(--ink); transition:all .15s;
+}
+.sim-tab.on{background:var(--pink); color:#fff;}
+.sim-tab:hover{transform:translateY(-2px);}
+.sim-card{display:none; background:#fff; border:3px solid var(--ink); border-radius:24px; box-shadow:6px 6px 0 var(--ink); padding:26px;}
+.sim-card.on{display:block; animation:pageIn .4s ease;}
+.sim-head{display:flex; gap:16px; align-items:flex-start; margin-bottom:14px;}
+.sim-head .mascot{width:74px; height:74px; flex:none; background:var(--cream); border:3px solid var(--ink); border-radius:18px; display:grid; place-items:center; padding:4px;}
+.sim-head .mascot svg{width:100%; height:100%;}
+.sim-head h3{font-size:1.35rem; line-height:1.25;}
+.sim-story{color:#514e6e; font-size:.96rem; margin-top:4px;}
+.sim-msg{
+  background:var(--cream); border:2.5px dashed var(--ink); border-radius:14px;
+  padding:10px 16px; margin:14px 0; font-size:.95rem; min-height:48px;
+}
+.t-green{color:#3d9b2e;} .t-orange{color:#e08a00;}
+.picker-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:10px 0;}
+.picker-row>span{font-weight:800; font-size:.92rem; min-width:150px;}
+.seg{display:flex; gap:7px; flex-wrap:wrap;}
+.seg-btn{
+  font:inherit; font-weight:800; cursor:pointer; width:44px; height:40px;
+  border:3px solid var(--ink); border-radius:12px; background:#fff; font-size:1rem;
+  transition:all .12s;
+}
+.seg-btn:hover{transform:translateY(-2px);}
+.seg-btn.on{background:var(--blue); color:#fff; box-shadow:2px 2px 0 var(--ink);}
+.seg.green .seg-btn.on{background:var(--green); color:var(--ink);}
+.seg.orange .seg-btn.on{background:var(--orange); color:var(--ink);}
+.sim-controls{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 4px;}
+
+/* Arena garis bilangan katak */
+.lane-labels{display:flex; justify-content:space-between; gap:10px; font-size:.8rem; font-weight:800; margin:8px 2px 2px;}
+.lane-labels .la{color:#3d9b2e;} .lane-labels .lb{color:#e08a00;}
+.line-scroll{overflow-x:auto; border:3px solid var(--ink); border-radius:18px; background:linear-gradient(180deg,#F2FBFF,#E8F7EC); padding:6px 10px 8px;}
+.line-inner{display:inline-block; min-width:100%;}
+.lane-row{position:relative; height:58px;}
+.num-row{display:flex; border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); background:#fff;}
+.cell{
+  position:relative; flex:none; height:46px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:.88rem; border-right:2px dashed rgba(51,48,74,.22);
+}
+.cell:first-child{border-left:2px dashed rgba(51,48,74,.22);}
+.cell .mk{
+  position:absolute; left:50%; transform:translateX(-50%) scale(0);
+  width:11px; height:11px; border-radius:50%; border:2px solid var(--ink); transition:transform .3s;
+}
+.cell .mk.mA{top:-7px; background:var(--green);}
+.cell .mk.mB{bottom:-7px; background:var(--orange);}
+.cell.hitA .mk.mA, .cell.hitB .mk.mB{transform:translateX(-50%) scale(1);}
+.cell.meet{background:#FFF3C4; box-shadow:inset 0 0 0 3px var(--yellow-d); border-radius:10px;}
+.cell.meet .mk{display:none;}
+.meet-star{position:absolute; inset:0; display:grid; place-items:center; pointer-events:none;}
+.meet-star svg{width:17px; height:17px; animation:starspin .7s ease;}
+@keyframes starspin{0%{transform:scale(0) rotate(-120deg)}100%{transform:scale(1) rotate(0)}}
+.frog{position:absolute; bottom:1px; width:52px; transition:left .52s cubic-bezier(.5,-0.15,.55,1.15); filter:drop-shadow(1px 2px 0 rgba(51,48,74,.35));}
+.frog svg{width:100%; height:auto;}
+.frog.fb{transform:scaleY(-1); }
+.laneB-holder .frog{top:1px; bottom:auto;}
+.frog.hop{animation:hopK .52s ease;}
+@keyframes hopK{40%{margin-bottom:26px} }
+.frog.joy{animation:joy .5s ease 3;}
+@keyframes joy{40%{margin-bottom:20px; }}
+.mult-lists{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
+.mult-lists .ml{border:2.5px solid var(--ink); border-radius:14px; padding:10px 14px;}
+.mult-lists .ml h5{font-size:.8rem; letter-spacing:.5px; margin-bottom:8px; color:#6a6788;}
+.ml.la{background:var(--green-l);} .ml.lb{background:#FFEEDA;}
+.result-banner{
+  margin-top:16px; background:var(--yellow); border:3px solid var(--ink); border-radius:18px;
+  box-shadow:4px 4px 0 var(--ink); padding:14px 20px; text-align:center; font-weight:700; font-size:1.02rem;
+}
+.result-banner .big{font-size:1.9rem; display:inline-block; background:#fff; border:2.5px solid var(--ink); border-radius:12px; padding:0 14px; margin:0 6px; vertical-align:middle;}
+.hidden{display:none !important;}
+
+/* Arena bingkisan FPB */
+.stock{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;}
+.stock-box{border:2.5px solid var(--ink); border-radius:16px; padding:12px 14px;}
+.stock-box.s-candy{background:var(--coral-l);}
+.stock-box.s-cookie{background:#FCEBD5;}
+.stock-box h5{font-size:.85rem; margin-bottom:8px; display:flex; align-items:center; gap:7px;}
+.stock-box h5 svg{width:28px; height:28px;}
+.icon-tray{display:flex; flex-wrap:wrap; gap:4px;}
+.icon-tray svg{width:24px; height:24px;}
+.preset-row{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 4px;}
+.preset-btn{
+  font:inherit; font-size:.84rem; font-weight:800; cursor:pointer;
+  border:2.5px solid var(--ink); border-radius:999px; padding:6px 14px; background:#fff;
+}
+.preset-btn:hover{background:var(--purple-l); transform:translateY(-2px);}
+.preset-btn.on{background:var(--purple); color:#fff;}
+.bags-area{display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; min-height:30px;}
+.bag{
+  background:#FFF; border:3px solid var(--ink); border-radius:16px; width:158px; padding:10px;
+  box-shadow:4px 4px 0 var(--ink); animation:bagIn .4s ease backwards;
+}
+@keyframes bagIn{from{transform:scale(0); opacity:0;} to{transform:scale(1); opacity:1;}}
+.bag h6{
+  text-align:center; font-size:.8rem; background:var(--pink-l); border:2px solid var(--ink);
+  border-radius:9px; padding:3px 6px; margin-bottom:8px;
+}
+.bag .b-row{display:flex; align-items:flex-start; gap:6px; margin:6px 0;}
+.bag .b-row .b-icons{display:flex; flex-wrap:wrap; gap:2px; flex:1;}
+.bag .b-row svg{width:19px; height:19px;}
+.bag .b-num{font-weight:800; font-size:.85rem; white-space:nowrap;}
+.leftover{
+  margin-top:16px; border:3px dashed var(--coral); background:var(--coral-l); border-radius:16px;
+  padding:12px 16px; font-size:.93rem;
+}
+.leftover .icon-tray{display:inline-flex; vertical-align:-6px; margin:0 4px;}
+.leftover svg{width:22px; height:22px;}
+.history{display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; font-size:.8rem;}
+.h-chip{border:2px solid var(--ink); border-radius:999px; padding:2px 10px; font-weight:800; background:#fff;}
+.h-chip.ok{background:var(--green-l);} .h-chip.no{background:var(--coral-l);}
+
+/* Mesin hitung */
+.calc-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:12px 0;}
+.calc-in label{font-weight:800; font-size:.85rem; display:block; margin-bottom:6px;}
+.calc-in input{
+  font:inherit; font-weight:800; font-size:1.4rem; text-align:center; width:100%;
+  border:3px solid var(--ink); border-radius:14px; padding:10px; background:var(--cream); color:var(--ink);
+  outline:none;
+}
+.calc-in input:focus{background:#fff; box-shadow:3px 3px 0 var(--ink);}
+.calc-results{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+.res-card{border:2.5px solid var(--ink); border-radius:16px; padding:14px 16px;}
+.res-card.y{background:var(--yellow);} .res-card.g{background:var(--teal-l);}
+.res-card.b{background:var(--blue-l);} .res-card.p{background:var(--purple-l);}
+.res-card h5{font-size:.82rem; letter-spacing:.5px; margin-bottom:8px; color:#55526e;}
+.res-card .big-num{font-size:2.2rem; font-weight:800;}
+.res-card.wide{grid-column:1/-1;}
+.fun-fact{
+  grid-column:1/-1; background:#fff; border:3px solid var(--ink); border-radius:16px;
+  padding:14px 18px; box-shadow:4px 4px 0 var(--ink); font-size:.95rem; text-align:center;
+}
+
+/* ---------- Halaman kuis ---------- */
+.quiz-card{max-width:660px; margin:0 auto; background:#fff; border:3px solid var(--ink); border-radius:24px; box-shadow:6px 6px 0 var(--ink); padding:26px 28px 30px;}
+.quiz-top{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+.progress{flex:1; height:16px; border:3px solid var(--ink); border-radius:999px; background:#eee; overflow:hidden;}
+#qProg{height:100%; width:0; background:linear-gradient(90deg,var(--teal),var(--green)); border-radius:999px; transition:width .4s ease;}
+#qCount{font-weight:800; font-size:.88rem; white-space:nowrap;}
+#qText{font-size:1.22rem; margin-bottom:18px; line-height:1.45;}
+.opts{display:grid; gap:11px;}
+.opt{
+  font:inherit; font-weight:700; text-align:left; cursor:pointer;
+  display:flex; align-items:center; gap:13px;
+  border:3px solid var(--ink); border-radius:16px; padding:12px 16px; background:#fff;
+  transition:all .13s; font-size:1rem; color:var(--ink);
+}
+.opt:hover:not(:disabled){transform:translateX(5px); background:var(--cream);}
+.opt:disabled{cursor:default;}
+.opt-letter{
+  flex:none; width:36px; height:36px; border-radius:12px; border:2.5px solid var(--ink);
+  display:grid; place-items:center; font-weight:800; font-size:1rem; color:#fff;
+}
+.opt:nth-child(1) .opt-letter{background:var(--coral);}
+.opt:nth-child(2) .opt-letter{background:var(--teal);}
+.opt:nth-child(3) .opt-letter{background:var(--purple);}
+.opt:nth-child(4) .opt-letter{background:var(--orange);}
+.opt.correct{background:var(--green-l); border-color:#2f8f2f; animation:pop .35s ease;}
+.opt.correct .opt-letter{background:var(--green); color:var(--ink);}
+.opt.wrong{background:var(--coral-l); border-color:var(--coral); animation:shake .4s ease;}
+@keyframes shake{20%,60%{transform:translateX(-7px);} 40%,80%{transform:translateX(7px);}}
+.exp{
+  margin-top:16px; background:var(--blue-l); border:2.5px solid var(--ink); border-radius:14px;
+  padding:13px 17px; font-size:.93rem; animation:pageIn .35s ease;
+}
+.quiz-actions{margin-top:18px; display:flex; justify-content:flex-end;}
+.quiz-finish{text-align:center; padding:10px 4px;}
+.stars-row{display:flex; justify-content:center; gap:12px; margin:8px 0 16px;}
+.stars-row svg{width:64px; height:64px;}
+.stars-row svg.won{animation:starWon .55s ease backwards;}
+.stars-row svg.won:nth-child(2){animation-delay:.18s;}
+.stars-row svg.won:nth-child(3){animation-delay:.36s;}
+@keyframes starWon{0%{transform:scale(0) rotate(-90deg);} 70%{transform:scale(1.25) rotate(8deg);} 100%{transform:scale(1) rotate(0);}}
+#qFinish h3{font-size:1.6rem; margin-bottom:8px;}
+#qScoreText{color:#514e6e; margin-bottom:6px; font-size:1.05rem;}
+#qFinalMsg{font-weight:800; font-size:1.05rem; margin-bottom:20px; color:#8a5a00;}
+.quiz-finish .quiz-actions{justify-content:center; gap:12px; flex-wrap:wrap;}
+
+/* ---------- Footer ---------- */
+footer{position:relative; margin-top:40px;}
+.hills{display:block; width:100%; height:auto; margin-bottom:-2px;}
+.foot-panel{
+  background:var(--green); border-top:3px solid var(--ink);
+  text-align:center; padding:22px 16px 30px; font-weight:700; color:#14510a;
+}
+.foot-panel span{display:block; font-weight:600; font-size:.85rem; margin-top:4px; color:#1d6a10;}
+
+/* ---------- Konfeti ---------- */
+#confettiLayer{position:fixed; inset:0; pointer-events:none; z-index:9999; overflow:hidden;}
+.confetti{position:absolute; top:-16px; animation:fall 2.9s ease-in forwards;}
+@keyframes fall{to{top:108%; transform:rotate(720deg); opacity:.75;}}
+
+/* ---------- Responsif ---------- */
+@media (max-width:840px){
+  .hero{grid-template-columns:1fr; text-align:center;}
+  .hero-btns,.mini-cards{justify-content:center;}
+  .lead{margin-left:auto; margin-right:auto;}
+  .hero-art{order:-1;}
+  .hero h1{font-size:2.2rem;}
+}
+@media (max-width:620px){
+  .grid-2,.stock,.calc-grid,.mult-lists,.calc-results{grid-template-columns:1fr;}
+  .panel{padding:22px 18px 30px;}
+  .sim-card{padding:20px 16px;}
+  .picker-row>span{min-width:100%;}
+  body{font-size:16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Langit dekoratif -->
+<div class="sky" aria-hidden="true">
+  <div class="cloud c1"><svg viewBox="0 0 120 60"><path d="M25 48 a14 14 0 0 1 3 -27 a18 18 0 0 1 33 -6 a15 15 0 0 1 22 10 a13 13 0 0 1 8 23 z" fill="#fff" stroke="#33304a" stroke-width="3"/></svg></div>
+  <div class="cloud c2"><svg viewBox="0 0 120 60"><path d="M25 48 a14 14 0 0 1 3 -27 a18 18 0 0 1 33 -6 a15 15 0 0 1 22 10 a13 13 0 0 1 8 23 z" fill="#fff" stroke="#33304a" stroke-width="3"/></svg></div>
+  <div class="cloud c3"><svg viewBox="0 0 120 60"><path d="M25 48 a14 14 0 0 1 3 -27 a18 18 0 0 1 33 -6 a15 15 0 0 1 22 10 a13 13 0 0 1 8 23 z" fill="#fff" stroke="#33304a" stroke-width="3"/></svg></div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 24 24"><path fill="#FFD93D" stroke="#33304a" stroke-width="1.4" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+    <span>Math<span class="l2">Land</span></span>
+  </div>
+  <nav class="navs">
+    <button class="nav-btn active" data-go="beranda">Beranda</button>
+    <button class="nav-btn" data-go="belajar">Belajar</button>
+    <button class="nav-btn" data-go="simulasi">Simulasi</button>
+    <button class="nav-btn" data-go="kuis">Kuis Seru</button>
+  </nav>
+  <button id="soundBtn" class="sound-btn">Suara: <b id="soundState">Nyala</b></button>
+</header>
+
+<main>
+
+<!-- ==================== BERANDA ==================== -->
+<section class="page active" id="page-beranda">
+  <div class="panel hero">
+    <div class="hero-left">
+      <span class="badge">Matematika SD &bull; Kelas 4, 5, 6</span>
+      <h1>Petualangan <span class="hl-y">FPB</span> &amp; <span class="hl-g">KPK</span></h1>
+      <p class="lead">Halo, penjelajah cilik! Ikuti Katak Hijau dan Katak Oranye melompat di garis bilangan,
+        bantu Kiki si Kucing berbagi bingkisan, lalu buktikan kepandaianmu di kuis berbintang!</p>
+      <div class="hero-btns">
+        <button class="btn big yellow" data-go="belajar">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z" opacity=".18"/><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0v14"/><path stroke="currentColor" stroke-width="2" d="M8 7h7M8 11h5"/></svg>
+          Mulai Belajar
+        </button>
+        <button class="btn big teal" data-go="simulasi">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>
+          Coba Simulasi
+        </button>
+      </div>
+      <div class="mini-cards">
+        <div class="mini-card" data-go="belajar"><span class="dot-ic" style="background:var(--coral)"></span>Materi mudah dipahami</div>
+        <div class="mini-card" data-go="simulasi"><span class="dot-ic" style="background:var(--teal)"></span>3 simulasi seru</div>
+        <div class="mini-card" data-go="kuis"><span class="dot-ic" style="background:var(--yellow)"></span>Kuis 10 soal berbintang</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 480 380">
+        <!-- matahari -->
+        <g class="spin">
+          <g stroke="#FFB700" stroke-width="6" stroke-linecap="round">
+            <path d="M60 4v18M60 98v18M4 60h18M98 60h18M20 20l13 13M87 87l13 13M100 20L87 33M33 87L20 100"/>
+          </g>
+        </g>
+        <circle cx="60" cy="60" r="34" fill="#FFD93D" stroke="#33304a" stroke-width="4"/>
+        <circle cx="50" cy="52" r="4" fill="#33304a"/><circle cx="70" cy="52" r="4" fill="#33304a"/>
+        <path d="M50 66 q10 8 20 0" stroke="#33304a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- bintang-bintang -->
+        <g class="twinkle"><path transform="translate(400,30) scale(1.4)" fill="#fff" stroke="#33304a" stroke-width="1.2" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></g>
+        <g class="twinkle tw2"><path transform="translate(300,10) scale(1)" fill="#FFD93D" stroke="#33304a" stroke-width="1.2" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></g>
+        <g class="twinkle" style="animation-delay:.7s"><path transform="translate(435,120) scale(0.9)" fill="#FF8FB1" stroke="#33304a" stroke-width="1.2" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></g>
+        <!-- bukit & kolam -->
+        <path d="M-10 300 Q 120 240 240 295 T 490 290 V 380 H -10 Z" fill="#7ED957" stroke="#33304a" stroke-width="4"/>
+        <ellipse cx="240" cy="335" rx="180" ry="34" fill="#8ED6F5" stroke="#33304a" stroke-width="4"/>
+        <ellipse cx="150" cy="330" rx="46" ry="12" fill="#5BBF45" stroke="#33304a" stroke-width="3.5"/>
+        <ellipse cx="330" cy="338" rx="46" ry="12" fill="#5BBF45" stroke="#33304a" stroke-width="3.5"/>
+        <!-- katak hijau -->
+        <svg x="108" y="238" width="90" height="90" viewBox="0 0 64 64" class="twinkle" style="animation-duration:3.4s">
+          <ellipse cx="24" cy="52" rx="12" ry="6" fill="#7ED957" stroke="#33304a" stroke-width="3"/>
+          <ellipse cx="40" cy="52" rx="12" ry="6" fill="#7ED957" stroke="#33304a" stroke-width="3"/>
+          <circle cx="32" cy="34" r="20" fill="#7ED957" stroke="#33304a" stroke-width="3"/>
+          <circle cx="22" cy="16" r="9" fill="#7ED957" stroke="#33304a" stroke-width="3"/>
+          <circle cx="42" cy="16" r="9" fill="#7ED957" stroke="#33304a" stroke-width="3"/>
+          <circle cx="22" cy="16" r="4.2" fill="#33304a"/><circle cx="42" cy="16" r="4.2" fill="#33304a"/>
+          <circle cx="20.8" cy="14.6" r="1.4" fill="#fff"/><circle cx="40.8" cy="14.6" r="1.4" fill="#fff"/>
+          <path d="M23 40 Q32 47 41 40" stroke="#33304a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="14" cy="32" r="3.4" fill="#FF9EBB"/><circle cx="50" cy="32" r="3.4" fill="#FF9EBB"/>
+        </svg>
+        <!-- katak oranye -->
+        <svg x="288" y="248" width="82" height="82" viewBox="0 0 64 64" class="twinkle tw2" style="animation-duration:3.9s">
+          <ellipse cx="24" cy="52" rx="12" ry="6" fill="#FFB03A" stroke="#33304a" stroke-width="3"/>
+          <ellipse cx="40" cy="52" rx="12" ry="6" fill="#FFB03A" stroke="#33304a" stroke-width="3"/>
+          <circle cx="32" cy="34" r="20" fill="#FFB03A" stroke="#33304a" stroke-width="3"/>
+          <circle cx="22" cy="16" r="9" fill="#FFB03A" stroke="#33304a" stroke-width="3"/>
+          <circle cx="42" cy="16" r="9" fill="#FFB03A" stroke="#33304a" stroke-width="3"/>
+          <circle cx="22" cy="16" r="4.2" fill="#33304a"/><circle cx="42" cy="16" r="4.2" fill="#33304a"/>
+          <circle cx="20.8" cy="14.6" r="1.4" fill="#fff"/><circle cx="40.8" cy="14.6" r="1.4" fill="#fff"/>
+          <path d="M23 40 Q32 47 41 40" stroke="#33304a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="14" cy="32" r="3.4" fill="#FF9EBB"/><circle cx="50" cy="32" r="3.4" fill="#FF9EBB"/>
+        </svg>
+        <!-- Kiki si kucing mengintip -->
+        <svg x="366" y="268" width="92" height="92" viewBox="0 0 64 64" class="twinkle" style="animation-duration:4.4s; animation-delay:.4s">
+          <path d="M14 22 L20 6 L29 17 Z" fill="#B983FF" stroke="#33304a" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M50 22 L44 6 L35 17 Z" fill="#B983FF" stroke="#33304a" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="32" cy="38" r="22" fill="#CBA7FF" stroke="#33304a" stroke-width="3"/>
+          <circle cx="24" cy="35" r="4" fill="#33304a"/><circle cx="40" cy="35" r="4" fill="#33304a"/>
+          <circle cx="23" cy="34" r="1.3" fill="#fff"/><circle cx="39" cy="34" r="1.3" fill="#fff"/>
+          <path d="M32 42 l-3 3 h6 z" fill="#FF8FB1" stroke="#33304a" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M32 45 q-4 4 -9 2 M32 45 q4 4 9 2" stroke="#33304a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- bunga -->
+        <g transform="translate(60,318)"><circle r="5.5" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="0" cy="-8"/><circle r="5.5" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="7.6" cy="-2.5"/><circle r="5.5" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="4.7" cy="6.5"/><circle r="5.5" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="-4.7" cy="6.5"/><circle r="5.5" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="-7.6" cy="-2.5"/><circle r="4.6" fill="#FFD93D" stroke="#33304a" stroke-width="2"/></g>
+        <g transform="translate(425,322)"><circle r="5.5" fill="#fff" stroke="#33304a" stroke-width="2" cx="0" cy="-8"/><circle r="5.5" fill="#fff" stroke="#33304a" stroke-width="2" cx="7.6" cy="-2.5"/><circle r="5.5" fill="#fff" stroke="#33304a" stroke-width="2" cx="4.7" cy="6.5"/><circle r="5.5" fill="#fff" stroke="#33304a" stroke-width="2" cx="-4.7" cy="6.5"/><circle r="5.5" fill="#fff" stroke="#33304a" stroke-width="2" cx="-7.6" cy="-2.5"/><circle r="4.6" fill="#FFB03A" stroke="#33304a" stroke-width="2"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BELAJAR ==================== -->
+<section class="page" id="page-belajar">
+  <div class="panel">
+    <h2 class="title">Ayo Belajar Dulu!</h2>
+    <div class="title-under"></div>
+    <p class="sub-lead">Pahami dulu konsep dasarnya, nanti simulasinya jadi gampang banget!</p>
+    <div class="cards">
+
+      <div class="card">
+        <span class="tag kuning">KONSEP 1</span>
+        <h3>Apa itu Faktor?</h3>
+        <p><b>Faktor</b> adalah bilangan yang bisa membagi <b>habis</b> suatu bilangan (tidak ada sisa).</p>
+        <div class="example">
+          <b class="ex-title">CONTOH: FAKTOR DARI 12</b>
+          <div class="chips">
+            <span class="chip pp1">1</span><span class="chip pp2">2</span><span class="chip pp3">3</span>
+            <span class="chip pp3">4</span><span class="chip pp2">6</span><span class="chip pp1">12</span>
+          </div>
+          <p class="note-klu">Warna yang sama itu berpasangan: 1&times;12, 2&times;6, 3&times;4. Semuanya hasilnya 12!</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="tag toska">KONSEP 2</span>
+        <h3>Apa itu Kelipatan?</h3>
+        <p><b>Kelipatan</b> adalah hasil perkalian bilangan dengan 1, 2, 3, dan seterusnya. Bayangkan melompat-lompat!</p>
+        <div class="example">
+          <b class="ex-title">CONTOH: KELIPATAN 3</b>
+          <div class="chips">
+            <span class="chip a">3</span><span class="arrow-sep">&rarr;</span>
+            <span class="chip a">6</span><span class="arrow-sep">&rarr;</span>
+            <span class="chip a">9</span><span class="arrow-sep">&rarr;</span>
+            <span class="chip a">12</span><span class="arrow-sep">&rarr;</span>
+            <span class="chip a">15</span><span class="arrow-sep">&rarr;</span> ...
+          </div>
+          <p class="note-klu">3&times;1=3, 3&times;2=6, 3&times;3=9, dan seterusnya tanpa henti!</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="tag toska">MATERI UTAMA</span>
+        <h3>KPK — Kelipatan Persekutuan Terkecil</h3>
+        <p><b>KPK</b> adalah kelipatan yang <b>sama</b> dari dua bilangan, dan yang <b>paling kecil</b>.</p>
+        <div class="example">
+          <b class="ex-title">CONTOH: KPK DARI 4 DAN 6</b>
+          <p style="font-size:.88rem; margin-bottom:6px;">Kelipatan 4:</p>
+          <div class="chips" style="margin-bottom:8px;">
+            <span class="chip b">4</span><span class="chip b">8</span><span class="chip hl">12</span><span class="chip b">16</span><span class="chip b">20</span><span class="chip hl">24</span>
+          </div>
+          <p style="font-size:.88rem; margin-bottom:6px;">Kelipatan 6:</p>
+          <div class="chips" style="margin-bottom:8px;">
+            <span class="chip a">6</span><span class="chip hl">12</span><span class="chip a">18</span><span class="chip hl">24</span><span class="chip a">30</span>
+          </div>
+          <p class="note-klu">Kelipatan persekutuan: 12, 24, ... Yang paling kecil adalah <b>KPK = 12</b>.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="tag merah">MATERI UTAMA</span>
+        <h3>FPB — Faktor Persekutuan Terbesar</h3>
+        <p><b>FPB</b> adalah faktor yang <b>sama</b> dari dua bilangan, dan yang <b>paling besar</b>.</p>
+        <div class="example">
+          <b class="ex-title">CONTOH: FPB DARI 12 DAN 18</b>
+          <p style="font-size:.88rem; margin-bottom:6px;">Faktor 12:</p>
+          <div class="chips" style="margin-bottom:8px;">
+            <span class="chip hl">1</span><span class="chip hl">2</span><span class="chip hl">3</span><span class="chip b">4</span><span class="chip hl">6</span><span class="chip b">12</span>
+          </div>
+          <p style="font-size:.88rem; margin-bottom:6px;">Faktor 18:</p>
+          <div class="chips" style="margin-bottom:8px;">
+            <span class="chip hl">1</span><span class="chip hl">2</span><span class="chip hl">3</span><span class="chip hl">6</span><span class="chip a">9</span><span class="chip a">18</span>
+          </div>
+          <p class="note-klu">Faktor persekutuan: 1, 2, 3, 6. Yang paling besar adalah <b>FPB = 6</b>.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="tag ungu">CARA CEPAT</span>
+        <h3>Pohon Faktor</h3>
+        <p>Bagi terus bilangannya sampai tinggal <b>bilangan prima</b> (2, 3, 5, 7...). Lihat pohon angka 24 ini!</p>
+        <div class="tree-box">
+          <svg viewBox="0 0 340 215">
+            <line x1="170" y1="63" x2="110" y2="92" stroke="#33304a" stroke-width="3"/>
+            <line x1="170" y1="63" x2="230" y2="92" stroke="#33304a" stroke-width="3"/>
+            <line x1="110" y1="133" x2="80" y2="162" stroke="#33304a" stroke-width="3"/>
+            <line x1="110" y1="133" x2="140" y2="162" stroke="#33304a" stroke-width="3"/>
+            <line x1="230" y1="133" x2="200" y2="162" stroke="#33304a" stroke-width="3"/>
+            <line x1="230" y1="133" x2="260" y2="162" stroke="#33304a" stroke-width="3"/>
+            <circle cx="170" cy="40" r="24" fill="#fff" stroke="#33304a" stroke-width="3.5"/><text x="170" y="47" text-anchor="middle" font-weight="800" font-size="19" fill="#33304a">24</text>
+            <circle cx="110" cy="110" r="21" fill="#fff" stroke="#33304a" stroke-width="3.5"/><text x="110" y="117" text-anchor="middle" font-weight="800" font-size="17" fill="#33304a">4</text>
+            <circle cx="230" cy="110" r="21" fill="#fff" stroke="#33304a" stroke-width="3.5"/><text x="230" y="117" text-anchor="middle" font-weight="800" font-size="17" fill="#33304a">6</text>
+            <circle cx="80" cy="183" r="18" fill="#FFD93D" stroke="#33304a" stroke-width="3"/><text x="80" y="189" text-anchor="middle" font-weight="800" font-size="15" fill="#33304a">2</text>
+            <circle cx="140" cy="183" r="18" fill="#FFD93D" stroke="#33304a" stroke-width="3"/><text x="140" y="189" text-anchor="middle" font-weight="800" font-size="15" fill="#33304a">2</text>
+            <circle cx="200" cy="183" r="18" fill="#FFD93D" stroke="#33304a" stroke-width="3"/><text x="200" y="189" text-anchor="middle" font-weight="800" font-size="15" fill="#33304a">2</text>
+            <circle cx="260" cy="183" r="18" fill="#FFD93D" stroke="#33304a" stroke-width="3"/><text x="260" y="189" text-anchor="middle" font-weight="800" font-size="15" fill="#33304a">3</text>
+          </svg>
+        </div>
+        <p class="note-klu" style="text-align:center;">Hasilnya: 24 = <span class="formula">2 &times; 2 &times; 2 &times; 3 = 2<sup>3</sup> &times; 3</span></p>
+      </div>
+
+      <div class="card">
+        <span class="tag biru">RAHASIA CEPAT</span>
+        <h3>KPK &amp; FPB dari Faktor Prima</h3>
+        <p>Sudah punya faktor primanya? Tinggal pilih pangkatnya!</p>
+        <div class="example" style="font-size:.92rem;">
+          <b class="ex-title">24 DAN 36</b>
+          <p>24 = <span class="formula">2<sup>3</sup> &times; 3</span> &nbsp;&nbsp; 36 = <span class="formula">2<sup>2</sup> &times; 3<sup>2</sup></span></p>
+          <p style="margin-top:8px;"><b>KPK</b> = ambil pangkat <b>terbesar</b>: <span class="formula">2<sup>3</sup> &times; 3<sup>2</sup> = 72</span></p>
+          <p style="margin-top:6px;"><b>FPB</b> = ambil faktor sama, pangkat <b>terkecil</b>: <span class="formula">2<sup>2</sup> &times; 3 = 12</span></p>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column:1/-1;">
+        <span class="tag ijo">DI KEHIDUPAN SEHARI-HARI</span>
+        <h3>Kapan Kita Memakai KPK dan FPB?</h3>
+        <div class="grid-2" style="margin-top:8px;">
+          <div class="use-half kpk">
+            <h4>
+              <svg class="ic" viewBox="0 0 48 48"><circle cx="24" cy="20" r="12" fill="#FFD93D" stroke="#33304a" stroke-width="3"/><path d="M19 31 h10 v4 a5 5 0 0 1 -10 0 z" fill="#BFC6D9" stroke="#33304a" stroke-width="2.5"/><path d="M24 2 v5 M8 9 l3.5 3.5 M40 9 l-3.5 3.5 M5 20 h6 M37 20 h6" stroke="#FFB700" stroke-width="3" stroke-linecap="round"/></svg>
+              Pakai KPK kalau...
+            </h4>
+            <ul>
+              <li>Dua lampu berkedip, kapan <b>bersamaan</b> lagi?</li>
+              <li>Dua bus berangkat, kapan <b>berangkat bersama</b>?</li>
+              <li>Les renang tiap 3 hari, les musik tiap 4 hari, kapan <b>bertemu jadwalnya</b>?</li>
+            </ul>
+          </div>
+          <div class="use-half fpb">
+            <h4>
+              <svg class="ic" viewBox="0 0 48 48"><rect x="8" y="18" width="32" height="24" rx="4" fill="#FF6B6B" stroke="#33304a" stroke-width="3"/><rect x="22" y="18" width="4.5" height="24" fill="#FFD93D" stroke="#33304a" stroke-width="2"/><rect x="6" y="12" width="36" height="8" rx="3" fill="#FF8A8A" stroke="#33304a" stroke-width="3"/><path d="M24 12 c-8 -2 -9 -10 -3 -10 c4 0 3 6 3 10 z M24 12 c8 -2 9 -10 3 -10 c-4 0 -3 6 -3 10 z" fill="#FFD93D" stroke="#33304a" stroke-width="2.5"/></svg>
+              Pakai FPB kalau...
+            </h4>
+            <ul>
+              <li>Membagi kue dan permen ke kantong <b>yang sama rata</b>.</li>
+              <li>Membuat <b>kelompok paling banyak</b> dengan isi sama.</li>
+              <li>Memotong tali jadi bagian <b>sama panjang, terpanjang</b>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24"><path fill="#fff" stroke="#33304a" stroke-width="1.6" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+        <div><b>Trik Mengingat!</b> FPB itu soal <b>Faktor</b> &rarr; hasilnya selalu <b>kecil atau sama</b> dengan bilangannya.
+        KPK itu soal <b>Kelipatan</b> &rarr; hasilnya <b>besar atau sama</b> dengan bilangannya. Mudah kan?</div>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top:28px;">
+      <button class="btn big green" data-go="simulasi">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>
+        Sudah Paham? Ayo ke Simulasi!
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SIMULASI ==================== -->
+<section class="page" id="page-simulasi">
+  <div class="panel">
+    <h2 class="title">Arena Simulasi</h2>
+    <div class="title-under"></div>
+    <p class="sub-lead">Mainkan tiga simulasi seru untuk melihat langsung cara kerja KPK dan FPB!</p>
+
+    <div class="sim-tabs">
+      <button class="sim-tab on" data-sim="kpk">1. Katak Melompat (KPK)</button>
+      <button class="sim-tab" data-sim="fpb">2. Bingkisan Kiki (FPB)</button>
+      <button class="sim-tab" data-sim="calc">3. Mesin Hitung Ajaib</button>
+    </div>
+
+    <!-- SIMULASI 1 : KATAK MELOMPAT (KPK) -->
+    <div class="sim-card on" id="sim-kpk">
+      <div class="sim-head">
+        <div class="mascot"><svg viewBox="0 0 64 64"><ellipse cx="24" cy="52" rx="12" ry="6" fill="#7ED957" stroke="#33304a" stroke-width="3"/><ellipse cx="40" cy="52" rx="12" ry="6" fill="#7ED957" stroke="#33304a" stroke-width="3"/><circle cx="32" cy="34" r="20" fill="#7ED957" stroke="#33304a" stroke-width="3"/><circle cx="22" cy="16" r="9" fill="#7ED957" stroke="#33304a" stroke-width="3"/><circle cx="42" cy="16" r="9" fill="#7ED957" stroke="#33304a" stroke-width="3"/><circle cx="22" cy="16" r="4.2" fill="#33304a"/><circle cx="42" cy="16" r="4.2" fill="#33304a"/><circle cx="20.8" cy="14.6" r="1.4" fill="#fff"/><circle cx="40.8" cy="14.6" r="1.4" fill="#fff"/><path d="M23 40 Q32 47 41 40" stroke="#33304a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="14" cy="32" r="3.4" fill="#FF9EBB"/><circle cx="50" cy="32" r="3.4" fill="#FF9EBB"/></svg></div>
+        <div>
+          <h3>Katak Melompat di Garis Bilangan</h3>
+          <p class="sim-story">Katak <b class="t-green">Hijau</b> dan Katak <b class="t-orange">Oranye</b> mulai dari angka 0.
+            Masing-masing melompat dengan panjang langkah berbeda. Di angka berapa mereka <b>mendarat bersama</b> untuk pertama kali?
+            Angka itulah <b>KPK</b>-nya!</p>
+        </div>
+      </div>
+
+      <div class="picker-row">
+        <span>Langkah Katak Hijau:</span>
+        <div class="seg green" id="segA"></div>
+      </div>
+      <div class="picker-row">
+        <span>Langkah Katak Oranye:</span>
+        <div class="seg orange" id="segB"></div>
+      </div>
+      <div class="sim-controls">
+        <button class="btn green" id="btnJump">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></svg>Mulai Melompat
+        </button>
+        <button class="btn ghost" id="btnJumpReset">Ulangi dari 0</button>
+      </div>
+
+      <div class="sim-msg" id="kpkMsg">Pilih panjang langkah kedua katak, lalu tekan <b>Mulai Melompat</b>!</div>
+
+      <div class="lane-labels"><span class="la">&uarr; Jalur Katak Hijau</span><span class="lb">Jalur Katak Oranye &darr;</span></div>
+      <div class="line-scroll">
+        <div class="line-inner">
+          <div class="lane-row" id="laneA"></div>
+          <div class="num-row" id="numRow"></div>
+          <div class="lane-row laneB-holder" id="laneB"></div>
+        </div>
+      </div>
+
+      <div class="mult-lists">
+        <div class="ml la">
+          <h5>KELIPATAN <span id="tA">4</span> (pijakan Katak Hijau)</h5>
+          <div class="chips" id="listA"></div>
+        </div>
+        <div class="ml lb">
+          <h5>KELIPATAN <span id="tB">6</span> (pijakan Katak Oranye)</h5>
+          <div class="chips" id="listB"></div>
+        </div>
+      </div>
+
+      <div class="result-banner hidden" id="kpkResult"></div>
+    </div>
+
+    <!-- SIMULASI 2 : BINGKISAN KIKI (FPB) -->
+    <div class="sim-card" id="sim-fpb">
+      <div class="sim-head">
+        <div class="mascot"><svg viewBox="0 0 64 64"><path d="M14 22 L20 6 L29 17 Z" fill="#B983FF" stroke="#33304a" stroke-width="3" stroke-linejoin="round"/><path d="M50 22 L44 6 L35 17 Z" fill="#B983FF" stroke="#33304a" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="38" r="22" fill="#CBA7FF" stroke="#33304a" stroke-width="3"/><circle cx="24" cy="35" r="4" fill="#33304a"/><circle cx="40" cy="35" r="4" fill="#33304a"/><circle cx="23" cy="34" r="1.3" fill="#fff"/><circle cx="39" cy="34" r="1.3" fill="#fff"/><path d="M32 42 l-3 3 h6 z" fill="#FF8FB1" stroke="#33304a" stroke-width="1.6" stroke-linejoin="round"/><path d="M32 45 q-4 4 -9 2 M32 45 q4 4 9 2" stroke="#33304a" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
+        <div>
+          <h3>Kiki Berbagi Bingkisan</h3>
+          <p class="sim-story">Kiki si Kucing ingin membuat <b>kantong bingkisan</b> untuk teman-temannya.
+            Semua kantong harus berisi <b>sama banyak</b> permen dan biskuit, tanpa sisa.
+            Berapa <b>paling banyak</b> kantong yang bisa dibuat? Jawabannya adalah <b>FPB</b>!</p>
+        </div>
+      </div>
+
+      <div class="picker-row">
+        <span>Pilih persediaan:</span>
+        <div class="preset-row" id="presetRow" style="margin:0;">
+          <button class="preset-btn on" data-a="12" data-b="18">12 permen &amp; 18 biskuit</button>
+          <button class="preset-btn" data-a="24" data-b="36">24 &amp; 36</button>
+          <button class="preset-btn" data-a="16" data-b="20">16 &amp; 20</button>
+          <button class="preset-btn" data-a="18" data-b="27">18 &amp; 27</button>
+          <button class="preset-btn" data-a="30" data-b="42">30 &amp; 42</button>
+          <button class="preset-btn" id="btnAcak">Acak Surprise</button>
+        </div>
+      </div>
+
+      <div class="stock">
+        <div class="stock-box s-candy">
+          <h5><svg viewBox="0 0 40 34"><path d="M3 17 l9 -7 v14 z" fill="#FF6B6B" stroke="#33304a" stroke-width="2.5" stroke-linejoin="round"/><path d="M37 17 l-9 -7 v14 z" fill="#FF6B6B" stroke="#33304a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="20" cy="17" r="11" fill="#fff" stroke="#33304a" stroke-width="2.5"/><path d="M14 11 c4 -3 8 -3 12 0 M14 23 c4 3 8 3 12 0" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-linecap="round"/></svg> Permen: <b id="countA">12</b> buah</h5>
+          <div class="icon-tray" id="stockA"></div>
+        </div>
+        <div class="stock-box s-cookie">
+          <h5><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="#E8A54B" stroke="#33304a" stroke-width="2.5"/><circle cx="13" cy="13" r="2.6" fill="#6B4226"/><circle cx="24" cy="15" r="2.6" fill="#6B4226"/><circle cx="17" cy="24" r="2.6" fill="#6B4226"/><circle cx="25" cy="24" r="2" fill="#6B4226"/><circle cx="12" cy="20" r="2" fill="#6B4226"/></svg> Biskuit: <b id="countB">18</b> buah</h5>
+          <div class="icon-tray" id="stockB"></div>
+        </div>
+      </div>
+
+      <div class="picker-row">
+        <span>Coba bagi ke ... kantong:</span>
+        <div class="seg purple" id="bagSeg" style="--seg:var(--purple);"></div>
+      </div>
+      <div class="sim-controls">
+        <button class="btn purple" id="btnBagi" disabled>Bagi Rata Sekarang</button>
+        <button class="btn yellow" id="btnMagic">Ajaib: Carikan yang Paling Banyak</button>
+      </div>
+
+      <div class="sim-msg" id="fpbMsg">Pilih jumlah kantong dulu, lalu tekan <b>Bagi Rata Sekarang</b>. Apakah akan pas tanpa sisa?</div>
+
+      <div class="bags-area" id="bagsArea"></div>
+      <div class="leftover hidden" id="leftover"></div>
+      <div class="result-banner hidden" id="fpbResult"></div>
+      <div class="history" id="fpbHistory"></div>
+    </div>
+
+    <!-- SIMULASI 3 : MESIN HITUNG -->
+    <div class="sim-card" id="sim-calc">
+      <div class="sim-head">
+        <div class="mascot"><svg viewBox="0 0 64 64"><rect x="8" y="6" width="48" height="52" rx="10" fill="#5DADE2" stroke="#33304a" stroke-width="3.5"/><rect x="16" y="13" width="32" height="13" rx="5" fill="#fff" stroke="#33304a" stroke-width="3"/><circle cx="22" cy="38" r="4.5" fill="#FFD93D" stroke="#33304a" stroke-width="2.5"/><circle cx="32" cy="38" r="4.5" fill="#FF6B6B" stroke="#33304a" stroke-width="2.5"/><circle cx="42" cy="38" r="4.5" fill="#7ED957" stroke="#33304a" stroke-width="2.5"/><circle cx="22" cy="50" r="4.5" fill="#B983FF" stroke="#33304a" stroke-width="2.5"/><circle cx="32" cy="50" r="4.5" fill="#FFB03A" stroke="#33304a" stroke-width="2.5"/><circle cx="42" cy="50" r="4.5" fill="#4ECDC4" stroke="#33304a" stroke-width="2.5"/><circle cx="24" cy="18" r="2" fill="#33304a"/><circle cx="36" cy="18" r="2" fill="#33304a"/><path d="M24 22 q4 3 8 0" stroke="#33304a" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+        <div>
+          <h3>Mesin Hitung Ajaib</h3>
+          <p class="sim-story">Masukkan dua bilangan (1 sampai 100), dan mesin akan menunjukkan semua faktor,
+            kelipatan, lalu menemukan <b>FPB</b> dan <b>KPK</b>-nya beserta rahasia hubungan mereka!</p>
+        </div>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-in"><label for="inA">Bilangan Pertama</label><input type="number" id="inA" min="1" max="100" value="12"></div>
+        <div class="calc-in"><label for="inB">Bilangan Kedua</label><input type="number" id="inB" min="1" max="100" value="18"></div>
+      </div>
+      <div class="sim-controls">
+        <button class="btn big yellow" id="btnCalc">Hitung Ajaib!</button>
+      </div>
+      <div class="sim-msg" id="calcMsg">Coba angka favoritmu, misalnya tanggal lahirmu!</div>
+      <div class="calc-results hidden" id="calcResults"></div>
+    </div>
+
+    <div style="text-align:center; margin-top:28px;">
+      <button class="btn big purple" data-go="kuis">Sudah Jago? Uji di Kuis Seru!</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== KUIS ==================== -->
+<section class="page" id="page-kuis">
+  <div class="panel">
+    <h2 class="title">Kuis Bintang FPB &amp; KPK</h2>
+    <div class="title-under"></div>
+    <p class="sub-lead">Jawab 10 soal dan kumpulkan bintang! Minimal 8 benar untuk mendapat 3 bintang.</p>
+    <div class="quiz-card">
+      <div id="qMain">
+        <div class="quiz-top">
+          <div class="progress"><div id="qProg"></div></div>
+          <span id="qCount">Soal 1 dari 10</span>
+        </div>
+        <h3 id="qText"></h3>
+        <div class="opts" id="qOpts"></div>
+        <div class="exp hidden" id="qExp"></div>
+        <div class="quiz-actions">
+          <button class="btn green hidden" id="qNext">Lanjut</button>
+        </div>
+      </div>
+      <div id="qFinish" class="quiz-finish hidden">
+        <div class="stars-row" id="starsRow"></div>
+        <h3 id="qFinishTitle"></h3>
+        <p id="qScoreText"></p>
+        <p id="qFinalMsg"></p>
+        <div class="quiz-actions">
+          <button class="btn yellow" id="qRetry">Ulangi Kuis</button>
+          <button class="btn teal" data-go="belajar">Belajar Lagi</button>
+          <button class="btn green" data-go="simulasi">Main Simulasi Lagi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <svg class="hills" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,72 Q150,12 300,58 T600,52 T900,62 T1200,48 V120 H0 Z" fill="#7ED957" stroke="#33304a" stroke-width="4"/>
+    <path d="M0,98 Q200,54 420,88 T840,84 T1200,84 V120 H0 Z" fill="#5BBF45"/>
+    <g transform="translate(170,64)"><circle r="6" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="0" cy="-9"/><circle r="6" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="8.6" cy="-2.8"/><circle r="6" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="5.3" cy="7.3"/><circle r="6" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="-5.3" cy="7.3"/><circle r="6" fill="#FF8FB1" stroke="#33304a" stroke-width="2" cx="-8.6" cy="-2.8"/><circle r="5" fill="#FFD93D" stroke="#33304a" stroke-width="2"/></g>
+    <g transform="translate(640,80)"><circle r="6" fill="#fff" stroke="#33304a" stroke-width="2" cx="0" cy="-9"/><circle r="6" fill="#fff" stroke="#33304a" stroke-width="2" cx="8.6" cy="-2.8"/><circle r="6" fill="#fff" stroke="#33304a" stroke-width="2" cx="5.3" cy="7.3"/><circle r="6" fill="#fff" stroke="#33304a" stroke-width="2" cx="-5.3" cy="7.3"/><circle r="6" fill="#fff" stroke="#33304a" stroke-width="2" cx="-8.6" cy="-2.8"/><circle r="5" fill="#FFB03A" stroke="#33304a" stroke-width="2"/></g>
+    <g transform="translate(1020,60)"><circle r="6" fill="#FFD93D" stroke="#33304a" stroke-width="2" cx="0" cy="-9"/><circle r="6" fill="#FFD93D" stroke="#33304a" stroke-width="2" cx="8.6" cy="-2.8"/><circle r="6" fill="#FFD93D" stroke="#33304a" stroke-width="2" cx="5.3" cy="7.3"/><circle r="6" fill="#FFD93D" stroke="#33304a" stroke-width="2" cx="-5.3" cy="7.3"/><circle r="6" fill="#FFD93D" stroke="#33304a" stroke-width="2" cx="-8.6" cy="-2.8"/><circle r="5" fill="#FF6B6B" stroke="#33304a" stroke-width="2"/></g>
+  </svg>
+  <div class="foot-panel">
+    MathLand &mdash; Petualangan FPB &amp; KPK
+    <span>Media pembelajaran Matematika SD &bull; Belajar sambil bermain &bull; Dibuka offline di browser mana pun</span>
+  </div>
+</footer>
+
+<div id="confettiLayer" aria-hidden="true"></div>
+
+<script>
+/* ============================================================
+   LOGIKA APLIKASI
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const delay = ms => new Promise(r => setTimeout(r, ms));
+function gcd(a,b){ while(b){ const t = a % b; a = b; b = t; } return a; }
+function lcm(a,b){ return a / gcd(a,b) * b; }
+function show(el){ el.classList.remove('hidden'); }
+function hide(el){ el.classList.add('hidden'); }
+
+/* ---------- Suara kecil yang lucu ---------- */
+let actx = null, soundOn = true;
+function beep(freq, dur, type, vol){
+  if(!soundOn) return;
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type || 'triangle'; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol || 0.1, actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + (dur || 0.12));
+    o.connect(g).connect(actx.destination);
+    o.start(); o.stop(actx.currentTime + (dur || 0.12) + 0.03);
+  }catch(e){}
+}
+function chime(){ beep(523,.14); setTimeout(()=>beep(659,.14),130); setTimeout(()=>beep(784,.3),260); setTimeout(()=>beep(1046,.35),380); }
+function sadBeep(){ beep(200,.2,'sawtooth',.06); setTimeout(()=>beep(150,.25,'sawtooth',.05),150); }
+
+$('soundBtn').addEventListener('click', () => {
+  soundOn = !soundOn;
+  $('soundState').textContent = soundOn ? 'Nyala' : 'Mati';
+  if(soundOn) beep(600,.1);
+});
+
+/* ---------- Konfeti (tanpa emoji, potongan kertas warna) ---------- */
+function confetti(){
+  const layer = $('confettiLayer');
+  const colors = ['#FF6B6B','#FFD93D','#4ECDC4','#B983FF','#7ED957','#FF8FB1','#5DADE2'];
+  for(let i=0;i<44;i++){
+    const p = document.createElement('i');
+    p.className = 'confetti';
+    const s = 6 + Math.random()*9;
+    p.style.cssText = 'left:'+ (Math.random()*100) +'%; width:'+ s +'px; height:'+
+      (Math.random()<.5 ? s : s*.45) +'px; background:'+ colors[i % colors.length] +
+      '; animation-delay:'+ (Math.random()*0.5) +'s; border-radius:'+ (Math.random()<.5?'50%':'3px') +
+      '; transform:rotate('+ (Math.random()*360) +'deg);';
+    layer.appendChild(p);
+    setTimeout(()=> p.remove(), 3600);
+  }
+}
+
+/* ---------- Navigasi antar halaman ---------- */
+function go(id){
+  document.querySelectorAll('.page').forEach(s => s.classList.toggle('active', s.id === 'page-' + id));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.go === id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+
+/* ---------- SVG pembantu ---------- */
+function frogSVG(color){
+  return '<svg viewBox="0 0 64 64" aria-hidden="true">' +
+    '<ellipse cx="24" cy="52" rx="12" ry="6" fill="'+color+'" stroke="#33304a" stroke-width="3"/>' +
+    '<ellipse cx="40" cy="52" rx="12" ry="6" fill="'+color+'" stroke="#33304a" stroke-width="3"/>' +
+    '<circle cx="32" cy="34" r="20" fill="'+color+'" stroke="#33304a" stroke-width="3"/>' +
+    '<circle cx="22" cy="16" r="9" fill="'+color+'" stroke="#33304a" stroke-width="3"/>' +
+    '<circle cx="42" cy="16" r="9" fill="'+color+'" stroke="#33304a" stroke-width="3"/>' +
+    '<circle cx="22" cy="16" r="4.2" fill="#33304a"/><circle cx="42" cy="16" r="4.2" fill="#33304a"/>' +
+    '<circle cx="20.8" cy="14.6" r="1.4" fill="#fff"/><circle cx="40.8" cy="14.6" r="1.4" fill="#fff"/>' +
+    '<path d="M23 40 Q32 47 41 40" stroke="#33304a" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+    '<circle cx="14" cy="32" r="3.4" fill="#FF9EBB"/><circle cx="50" cy="32" r="3.4" fill="#FF9EBB"/></svg>';
+}
+function starSVG(fill){
+  return '<svg viewBox="0 0 24 24"><path fill="'+fill+'" stroke="#33304a" stroke-width="1.3" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>';
+}
+function candySVG(){
+  return '<svg viewBox="0 0 40 34"><path d="M3 17 l9 -7 v14 z" fill="#FF6B6B" stroke="#33304a" stroke-width="2.5" stroke-linejoin="round"/><path d="M37 17 l-9 -7 v14 z" fill="#FF6B6B" stroke="#33304a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="20" cy="17" r="11" fill="#fff" stroke="#33304a" stroke-width="2.5"/><path d="M14 11 c4 -3 8 -3 12 0 M14 23 c4 3 8 3 12 0" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+}
+function cookieSVG(){
+  return '<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="#E8A54B" stroke="#33304a" stroke-width="2.5"/><circle cx="13" cy="13" r="2.6" fill="#6B4226"/><circle cx="24" cy="15" r="2.6" fill="#6B4226"/><circle cx="17" cy="24" r="2.6" fill="#6B4226"/><circle cx="25" cy="24" r="2" fill="#6B4226"/><circle cx="12" cy="20" r="2" fill="#6B4226"/></svg>';
+}
+
+/* ============================================================
+   SIMULASI 1 — KATAK MELOMPAT (KPK)
+   ============================================================ */
+const OPS = [2,3,4,5,6,8,10,12];
+const FK = {a:4, b:6, busy:false};
+const CELL_W = 46, FROG_W = 52;
+let fA = null, fB = null;
+
+function segInit(el, key, after){
+  el.innerHTML = '';
+  OPS.forEach(v => {
+    const b = document.createElement('button');
+    b.className = 'seg-btn' + (FK[key] === v ? ' on' : '');
+    b.textContent = v;
+    b.addEventListener('click', () => {
+      if(FK.busy) return;
+      FK[key] = v;
+      el.querySelectorAll('.seg-btn').forEach(x => x.classList.toggle('on', +x.textContent === v));
+      after && after();
+    });
+    el.appendChild(b);
+  });
+}
+
+function segLock(locked){
+  document.querySelectorAll('#segA .seg-btn, #segB .seg-btn').forEach(b => b.disabled = locked);
+}
+
+function resetKpkBoard(msg){
+  buildLine();
+  hide($('kpkResult'));
+  $('listA').innerHTML = ''; $('listB').innerHTML = '';
+  $('tA').textContent = FK.a; $('tB').textContent = FK.b;
+  $('kpkMsg').innerHTML = msg || 'Tekan <b>Mulai Melompat</b> untuk melihat di angka berapa mereka bertemu!';
+  if(FK.a === FK.b){
+    $('kpkMsg').innerHTML = '<b>Pilih dua langkah yang berbeda ya!</b> Kalau sama, mereka langsung bersama terus, kurang seru.';
+  }
+}
+
+function buildLine(){
+  const n = lcm(FK.a, FK.b);
+  const numRow = $('numRow'), laneA = $('laneA'), laneB = $('laneB');
+  numRow.innerHTML = ''; laneA.innerHTML = ''; laneB.innerHTML = '';
+  numRow.style.width = ((n + 1) * CELL_W) + 'px';
+  for(let i=0; i<=n; i++){
+    const c = document.createElement('div');
+    c.className = 'cell'; c.style.width = CELL_W + 'px';
+    c.innerHTML = '<span class="mk mA"></span><span class="num">'+ i +'</span><span class="mk mB"></span>';
+    numRow.appendChild(c);
+  }
+  fA = document.createElement('div'); fA.className = 'frog'; fA.innerHTML = frogSVG('#7ED957'); laneA.appendChild(fA);
+  fB = document.createElement('div'); fB.className = 'frog'; fB.innerHTML = frogSVG('#FFB03A'); laneB.appendChild(fB);
+  placeFrog(fA, 0); placeFrog(fB, 0);
+}
+
+function placeFrog(f, i){ f.style.left = (i * CELL_W + CELL_W/2 - FROG_W/2) + 'px'; }
+
+function addChip(listEl, v, cls){
+  const s = document.createElement('span');
+  s.className = 'chip pop ' + cls; s.textContent = v;
+  listEl.appendChild(s);
+}
+
+async function hop(f, i, who){
+  f.classList.add('hop');
+  placeFrog(f, i);
+  beep(240 + i * 7, .1, 'triangle', .09);
+  await delay(540);
+  f.classList.remove('hop');
+  const c = $('numRow').children[i];
+  c.classList.add(who === 'a' ? 'hitA' : 'hitB');
+  if(c.classList.contains('hitA') && c.classList.contains('hitB')){
+    c.classList.add('meet');
+    c.insertAdjacentHTML('beforeend', '<span class="meet-star">'+ starSVG('#FFCB30') +'</span>');
+  }
+}
+
+async function runJump(){
+  if(FK.busy) return;
+  if(FK.a === FK.b){
+    $('kpkMsg').innerHTML = '<b>Pilih dua langkah yang berbeda ya!</b> Supaya seru mencarinya.';
+    return;
+  }
+  FK.busy = true;
+  segLock(true);
+  $('btnJump').disabled = true;
+  buildLine();
+  hide($('kpkResult'));
+  $('listA').innerHTML = ''; $('listB').innerHTML = '';
+  $('kpkMsg').innerHTML = 'Katak <b class="t-green">Hijau</b> dan Katak <b class="t-orange">Oranye</b> bersiap-siap di angka 0...';
+  beep(400,.12); await delay(700);
+
+  let pa = 0, pb = 0, turn = 0;
+  while(true){
+    if(turn % 2 === 0){
+      pa += FK.a;
+      $('kpkMsg').innerHTML = 'Katak <b class="t-green">Hijau</b> melompat ke <b>'+ pa +'</b> (kelipatan '+ FK.a +').';
+      await hop(fA, pa, 'a');
+      addChip($('listA'), pa, 'a');
+    } else {
+      pb += FK.b;
+      $('kpkMsg').innerHTML = 'Katak <b class="t-orange">Oranye</b> melompat ke <b>'+ pb +'</b> (kelipatan '+ FK.b +').';
+      await hop(fB, pb, 'b');
+      addChip($('listB'), pb, 'b');
+    }
+    if(pa === pb && pa > 0){ meetKpk(pa); break; }
+    turn++;
+    if(turn > 220) break; /* pengaman */
+    await delay(140);
+  }
+}
+
+function meetKpk(v){
+  $('kpkMsg').innerHTML = 'Hore! Mereka <b>BERTEMU</b> di angka <b>'+ v +'</b>!';
+  const res = $('kpkResult');
+  res.innerHTML = 'KPK dari '+ FK.a +' dan '+ FK.b +' adalah <span class="big">'+ v +'</span><br>' +
+    '<span style="font-size:.88rem; font-weight:600;">'+ v +' adalah kelipatan persekutuan yang paling kecil. Geser garis bilangan untuk melihat bintang pertemuannya!</span>';
+  show(res);
+  fA.classList.add('joy'); fB.classList.add('joy');
+  setTimeout(()=>{ fA.classList.remove('joy'); fB.classList.remove('joy'); }, 1700);
+  [$('listA'), $('listB')].forEach(list => {
+    [...list.children].forEach(ch => { if(+ch.textContent === v) ch.classList.add('common'); });
+  });
+  /* gulirkan agar bintang terlihat */
+  const cell = $('numRow').children[v];
+  if(cell) cell.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  chime(); confetti();
+  segLock(false);
+  $('btnJump').disabled = false;
+  FK.busy = false;
+}
+
+$('btnJump').addEventListener('click', runJump);
+$('btnJumpReset').addEventListener('click', () => { if(!FK.busy) resetKpkBoard(); });
+
+/* ============================================================
+   SIMULASI 2 — BINGKISAN KIKI (FPB)
+   ============================================================ */
+const FB = {a:12, b:18, k:0, busy:false};
+
+function renderStock(){
+  $('countA').textContent = FB.a;
+  $('countB').textContent = FB.b;
+  $('stockA').innerHTML = candySVG().repeat(FB.a);
+  $('stockB').innerHTML = cookieSVG().repeat(FB.b);
+}
+
+function bagSegInit(){
+  const seg = $('bagSeg');
+  seg.innerHTML = '';
+  for(let k=2; k<=12; k++){
+    const b = document.createElement('button');
+    b.className = 'seg-btn'; b.textContent = k; b.dataset.k = k;
+    b.disabled = k > Math.min(FB.a, FB.b) || FB.busy;
+    b.addEventListener('click', () => {
+      if(FB.busy) return;
+      FB.k = k;
+      seg.querySelectorAll('.seg-btn').forEach(x => x.classList.toggle('on', +x.dataset.k === k));
+      $('btnBagi').disabled = false;
+      $('fpbMsg').innerHTML = 'Siap! Tekan <b>Bagi Rata Sekarang</b> untuk membagi ke <b>'+ k +' kantong</b>.';
+    });
+    seg.appendChild(b);
+  }
+}
+
+function resetFpb(msg){
+  $('bagsArea').innerHTML = '';
+  $('fpbHistory').innerHTML = '';
+  hide($('leftover')); hide($('fpbResult'));
+  $('btnBagi').disabled = true;
+  FB.k = 0;
+  renderStock(); bagSegInit();
+  $('fpbMsg').innerHTML = msg || 'Pilih jumlah kantong dulu, lalu tekan <b>Bagi Rata Sekarang</b>. Apakah akan pas tanpa sisa?';
+}
+
+document.querySelectorAll('#presetRow .preset-btn[data-a]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if(FB.busy) return;
+    document.querySelectorAll('#presetRow .preset-btn').forEach(x => x.classList.remove('on'));
+    btn.classList.add('on');
+    FB.a = +btn.dataset.a; FB.b = +btn.dataset.b;
+    resetFpb();
+  });
+});
+
+$('btnAcak').addEventListener('click', () => {
+  if(FB.busy) return;
+  document.querySelectorAll('#presetRow .preset-btn').forEach(x => x.classList.remove('on'));
+  $('btnAcak').classList.add('on');
+  const pairs = [[2,3],[2,5],[3,4],[3,5],[4,5],[5,6]];
+  const gs = [2,3,4,5,6];
+  let A = 12, B = 18, guard = 0;
+  do{
+    const g = gs[Math.floor(Math.random()*gs.length)];
+    const p = pairs[Math.floor(Math.random()*pairs.length)];
+    A = g * p[0]; B = g * p[1];
+    guard++;
+  }while((A > 48 || B > 48) && guard < 40);
+  FB.a = A; FB.b = B;
+  resetFpb('Persediaan baru dari Kiki! Ada <b>'+A+' permen</b> dan <b>'+B+' biskuit</b>. Ayo coba dibagi rata!');
+  beep(520,.1); setTimeout(()=>beep(660,.12),120);
+});
+
+function setFpbControls(locked){
+  document.querySelectorAll('#presetRow .preset-btn').forEach(b => b.disabled = locked);
+  document.querySelectorAll('#bagSeg .seg-btn').forEach(b => b.disabled = locked || +b.dataset.k > Math.min(FB.a, FB.b));
+  $('btnMagic').disabled = locked;
+  $('btnBagi').disabled = locked || !FB.k;
+}
+
+function addHistory(k, ok){
+  const h = document.createElement('span');
+  h.className = 'h-chip ' + (ok ? 'ok' : 'no');
+  h.textContent = k + ' kantong: ' + (ok ? 'PAS' : 'ada sisa');
+  $('fpbHistory').appendChild(h);
+}
+
+async function distribute(k){
+  if(FB.busy) return false;
+  FB.busy = true; setFpbControls(true);
+  $('bagsArea').innerHTML = '';
+  hide($('leftover')); hide($('fpbResult'));
+
+  const qa = Math.floor(FB.a / k), ra = FB.a % k;
+  const qb = Math.floor(FB.b / k), rb = FB.b % k;
+  $('fpbMsg').innerHTML = 'Membagi <b>'+ FB.a +' permen</b> dan <b>'+ FB.b +' biskuit</b> ke dalam <b>'+ k +' kantong</b>...';
+
+  const area = $('bagsArea');
+  for(let i=1; i<=k; i++){
+    const bag = document.createElement('div');
+    bag.className = 'bag';
+    bag.style.animationDelay = (i * 0.05) + 's';
+    bag.innerHTML = '<h6>Kantong '+ i +'</h6>' +
+      '<div class="b-row"><div class="b-icons">'+ candySVG().repeat(qa) +'</div><span class="b-num">&times;'+ qa +'</span></div>' +
+      '<div class="b-row"><div class="b-icons">'+ cookieSVG().repeat(qb) +'</div><span class="b-num">&times;'+ qb +'</span></div>';
+    area.appendChild(bag);
+    beep(320 + i * 30, .07, 'square', .04);
+    await delay(180);
+  }
+
+  const ok = (ra === 0 && rb === 0);
+  addHistory(k, ok);
+  if(ok){
+    const fpb = gcd(FB.a, FB.b);
+    if(k === fpb){
+      $('fpbMsg').innerHTML = '<b>SEMPURNA!</b> Pas tanpa sisa, dan ini jumlah kantong <b>paling banyak</b> yang mungkin!';
+      const res = $('fpbResult');
+      res.innerHTML = 'FPB dari '+ FB.a +' dan '+ FB.b +' adalah <span class="big">'+ k +'</span><br>' +
+        '<span style="font-size:.88rem; font-weight:600;">Setiap kantong berisi '+ qa +' permen dan '+ qb +' biskuit. Inilah pembagian rata paling banyak!</span>';
+      show(res);
+      chime(); confetti();
+    } else {
+      $('fpbMsg').innerHTML = '<b>Pas tanpa sisa!</b> Setiap kantong berisi '+ qa +' permen dan '+ qb +' biskuit. ' +
+        'Tapi... bisa dibuat kantong yang <b>lebih banyak</b> lho! Coba lagi, atau tekan tombol ajaib.';
+      beep(700,.15);
+    }
+  } else {
+    let sisaTxt = [];
+    if(ra > 0) sisaTxt.push(ra + ' permen');
+    if(rb > 0) sisaTxt.push(rb + ' biskuit');
+    $('fpbMsg').innerHTML = 'Waduh, <b>tidak habis dibagi rata!</b> Masih ada sisa. Coba jumlah kantong yang lain ya.';
+    const lo = $('leftover');
+    lo.innerHTML = '<b>Sisa yang tidak bisa masuk kantong:</b><br>' +
+      (ra > 0 ? '<span class="icon-tray">'+ candySVG().repeat(Math.min(ra,10)) +'</span> <b>'+ ra +' permen</b> ' : '') +
+      (rb > 0 ? '<span class="icon-tray">'+ cookieSVG().repeat(Math.min(rb,10)) +'</span> <b>'+ rb +' biskuit</b>' : '');
+    show(lo);
+    sadBeep();
+  }
+  FB.busy = false; setFpbControls(false);
+  return ok;
+}
+
+$('btnBagi').addEventListener('click', () => { if(FB.k) distribute(FB.k); });
+
+$('btnMagic').addEventListener('click', async () => {
+  if(FB.busy) return;
+  FB.busy = true; setFpbControls(true);
+  const fpb = gcd(FB.a, FB.b);
+  const startK = Math.min(FB.a, FB.b, 12);
+  $('fpbMsg').innerHTML = 'Kiki sedang berpikir keras mencari jumlah kantong paling banyak...';
+  for(let k = startK; k >= 1; k--){
+    $('fpbMsg').innerHTML = 'Kiki mencoba <b>'+ k +' kantong</b>... ';
+    beep(300 + k * 20, .07, 'triangle', .06);
+    await delay(420);
+    if(k === fpb){
+      $('fpbMsg').innerHTML = '<b>Ketemu!</b> '+ k +' kantong pas sempurna. Lihat pembagiannya:';
+      /* tandai chip k jika ada */
+      document.querySelectorAll('#bagSeg .seg-btn').forEach(x => x.classList.toggle('on', +x.dataset.k === k));
+      FB.k = k;
+      FB.busy = false;                 /* izinkan distribute berjalan */
+      await distribute(k);
+      return;
+    } else {
+      $('fpbMsg').innerHTML += (FB.a % k !== 0 || FB.b % k !== 0) ? 'masih bersisa.' : 'pas, tapi coba lebih besar!';
+    }
+  }
+  FB.busy = false; setFpbControls(false);
+});
+
+/* ============================================================
+   SIMULASI 3 — MESIN HITUNG AJAIB
+   ============================================================ */
+function factors(n){
+  const r = [];
+  for(let i=1; i<=n; i++) if(n % i === 0) r.push(i);
+  return r;
+}
+
+$('btnCalc').addEventListener('click', () => {
+  const a = parseInt($('inA').value, 10), b = parseInt($('inB').value, 10);
+  const box = $('calcResults'), msg = $('calcMsg');
+  if(!Number.isInteger(a) || !Number.isInteger(b) || a < 1 || b < 1 || a > 100 || b > 100){
+    msg.innerHTML = '<b>Masukkan bilangan 1 sampai 100 ya!</b> Angkanya jangan terlalu besar.';
+    sadBeep(); hide(box); return;
+  }
+  const fa = factors(a), fb = factors(b);
+  const commonF = fa.filter(x => fb.includes(x));
+  const fpb = commonF[commonF.length - 1];
+  const kpk = lcm(a, b);
+  const ka = [], kb = [];
+  for(let m = a; m <= kpk; m += a) ka.push(m);
+  for(let m = b; m <= kpk; m += b) kb.push(m);
+
+  const chipF = (v, cls) => '<span class="chip '+ cls + (commonF.includes(v) ? ' hl' : '') +'">'+ v +'</span>';
+  const chipK = (v, cls) => '<span class="chip '+ cls + (v === kpk ? ' hl' : '') +'">'+ v +'</span>';
+  const listK = (arr, cls) => {
+    const capped = arr.slice(0, 30).map(v => chipK(v, cls)).join('');
+    return capped + (arr.length > 30 ? ' <span class="arrow-sep">... sampai '+ kpk +'</span>' : '');
+  };
+
+  box.innerHTML =
+    '<div class="res-card b"><h5>FAKTOR DARI '+ a +'</h5><div class="chips">'+ fa.map(v => chipF(v,'b')).join('') +'</div></div>' +
+    '<div class="res-card g"><h5>FAKTOR DARI '+ b +'</h5><div class="chips">'+ fb.map(v => chipF(v,'a')).join('') +'</div></div>' +
+    '<div class="res-card y wide"><h5>FAKTOR PERSEKUTUAN (yang sama) &rarr; AMBIL YANG TERBESAR</h5>' +
+      '<div class="chips">'+ commonF.map(v => '<span class="chip">'+ v +'</span>').join('') +'</div>' +
+      '<div style="margin-top:10px;">FPB('+ a +', '+ b +') = <span class="big-num">'+ fpb +'</span></div></div>' +
+    '<div class="res-card b"><h5>KELIPATAN '+ a +'</h5><div class="chips">'+ listK(ka,'b') +'</div></div>' +
+    '<div class="res-card g"><h5>KELIPATAN '+ b +'</h5><div class="chips">'+ listK(kb,'a') +'</div></div>' +
+    '<div class="res-card p wide"><h5>KELIPATAN PERSEKUTUAN PERTAMA &rarr; YANG PALING KECIL</h5>' +
+      '<div>KPK('+ a +', '+ b +') = <span class="big-num">'+ kpk +'</span></div></div>' +
+    '<div class="fun-fact"><b>Rahasia Ajaib:</b> FPB &times; KPK = '+ fpb +' &times; '+ kpk +' = <b>'+ (fpb*kpk) +'</b>, ' +
+      'dan '+ a +' &times; '+ b +' = <b>'+ (a*b) +'</b>. Hasilnya selalu sama! Keren, kan?</div>';
+  show(box);
+  msg.innerHTML = 'Taraa! Ini hasilnya. Perhatikan angka yang <b>disorot kuning</b> — itulah persekutuannya.';
+  chime();
+  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+[$('inA'), $('inB')].forEach(inp => inp.addEventListener('keydown', e => { if(e.key === 'Enter') $('btnCalc').click(); }));
+
+/* ---------- Tab antar simulasi ---------- */
+document.querySelectorAll('.sim-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.sim-tab').forEach(x => x.classList.toggle('on', x === t));
+    document.querySelectorAll('.sim-card').forEach(c => c.classList.toggle('on', c.id === 'sim-' + t.dataset.sim));
+  });
+});
+
+/* ============================================================
+   KUIS
+   ============================================================ */
+const QUIZ = [
+  { q:'Manakah di bawah ini yang merupakan faktor dari 12?',
+    opts:['5','4','7','10'], ans:1,
+    exp:'Faktor adalah bilangan yang membagi HABIS 12. Karena 12 : 4 = 3 (habis tak bersisa), maka 4 adalah faktor dari 12. Faktor 12 selengkapnya: 1, 2, 3, 4, 6, 12.' },
+  { q:'Manakah yang BUKAN kelipatan dari 6?',
+    opts:['12','18','26','24'], ans:2,
+    exp:'Kelipatan 6 adalah 6, 12, 18, 24, 30, ... Angka 26 tidak ada di dalamnya, jadi 26 bukan kelipatan 6.' },
+  { q:'FPB dari 12 dan 18 adalah ...',
+    opts:['2','3','6','9'], ans:2,
+    exp:'Faktor 12: 1, 2, 3, 4, 6, 12. Faktor 18: 1, 2, 3, 6, 9, 18. Faktor persekutuannya: 1, 2, 3, 6. Yang TERBESAR adalah 6.' },
+  { q:'KPK dari 4 dan 6 adalah ...',
+    opts:['10','12','16','24'], ans:1,
+    exp:'Kelipatan 4: 4, 8, 12, 16, ... Kelipatan 6: 6, 12, 18, ... Kelipatan persekutuan pertama (paling kecil) adalah 12.' },
+  { q:'KPK dari 5 dan 7 adalah ...',
+    opts:['12','21','35','25'], ans:2,
+    exp:'5 dan 7 tidak punya faktor sama selain 1, jadi KPK-nya adalah hasil kalinya: 5 x 7 = 35.' },
+  { q:'FPB dari 24 dan 36 adalah ...',
+    opts:['4','6','8','12'], ans:3,
+    exp:'Faktor 24: 1, 2, 3, 4, 6, 8, 12, 24. Faktor 36: 1, 2, 3, 4, 6, 9, 12, 18, 36. Faktor persekutuan terbesarnya adalah 12.' },
+  { q:'Lampu merah berkedip setiap 3 detik, lampu biru setiap 4 detik. Keduanya berkedip BERSAMA setiap ... detik.',
+    opts:['5','7','12','24'], ans:2,
+    exp:'Ini soal KPK! Kelipatan 3: 3, 6, 9, 12. Kelipatan 4: 4, 8, 12. KPK(3, 4) = 12, jadi mereka berkedip bersama setiap 12 detik.' },
+  { q:'Bunda punya 20 kue dan 30 permen. Jika dibagi rata ke dalam kantong, jumlah kantong PALING BANYAK adalah ...',
+    opts:['5 kantong','10 kantong','15 kantong','20 kantong'], ans:1,
+    exp:'Ini soal FPB! Faktor 20: 1, 2, 4, 5, 10, 20. Faktor 30: 1, 2, 3, 5, 6, 10, 15, 30. FPB(20, 30) = 10 kantong.' },
+  { q:'Faktor persekutuan dari 8 dan 12 adalah ...',
+    opts:['1, 2, dan 4','1, 3, dan 4','2, 4, dan 6','1, 2, 3, dan 4'], ans:0,
+    exp:'Faktor 8: 1, 2, 4, 8. Faktor 12: 1, 2, 3, 4, 6, 12. Yang ada di keduanya: 1, 2, dan 4. (FPB-nya adalah 4.)' },
+  { q:'Katak Hijau melompat 8 langkah dan Katak Oranye 12 langkah dari angka 0. Mereka pertama kali mendarat bersama di angka ...',
+    opts:['16','20','24','36'], ans:2,
+    exp:'Ini soal KPK seperti di simulasi katak! Kelipatan 8: 8, 16, 24. Kelipatan 12: 12, 24. KPK(8, 12) = 24.' }
+];
+
+let qIdx = 0, qScore = 0, qLocked = false;
+
+function startQuiz(){
+  qIdx = 0; qScore = 0;
+  show($('qMain')); hide($('qFinish'));
+  renderQ();
+}
+
+function renderQ(){
+  const Q = QUIZ[qIdx];
+  qLocked = false;
+  $('qText').textContent = Q.q;
+  $('qCount').textContent = 'Soal ' + (qIdx + 1) + ' dari ' + QUIZ.length;
+  $('qProg').style.width = (qIdx / QUIZ.length * 100) + '%';
+  hide($('qExp')); hide($('qNext'));
+  const box = $('qOpts');
+  box.innerHTML = '';
+  Q.opts.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = '<span class="opt-letter">'+ 'ABCD'[i] +'</span><span>'+ t +'</span>';
+    b.addEventListener('click', () => answer(i, b));
+    box.appendChild(b);
+  });
+}
+
+function answer(i, btn){
+  if(qLocked) return;
+  qLocked = true;
+  const Q = QUIZ[qIdx];
+  const btns = [...$('qOpts').children];
+  btns.forEach(b => b.disabled = true);
+  const benar = (i === Q.ans);
+  if(benar){
+    qScore++;
+    btn.classList.add('correct');
+    beep(660,.12); setTimeout(()=>beep(880,.18),110);
+  } else {
+    btn.classList.add('wrong');
+    btns[Q.ans].classList.add('correct');
+    sadBeep();
+  }
+  $('qExp').innerHTML = '<b>'+ (benar ? 'Hebat, jawabanmu benar!' : 'Belum tepat, tidak apa-apa!') +'</b> ' + Q.exp;
+  show($('qExp'));
+  $('qProg').style.width = ((qIdx + 1) / QUIZ.length * 100) + '%';
+  const nx = $('qNext');
+  nx.textContent = (qIdx === QUIZ.length - 1) ? 'Lihat Hasilku' : 'Soal Berikutnya';
+  show(nx);
+}
+
+$('qNext').addEventListener('click', () => {
+  qIdx++;
+  if(qIdx < QUIZ.length) renderQ(); else finishQuiz();
+});
+
+function finishQuiz(){
+  hide($('qMain'));
+  show($('qFinish'));
+  const pct = qScore / QUIZ.length;
+  const stars = pct >= 0.8 ? 3 : (pct >= 0.5 ? 2 : 1);
+  const row = $('starsRow');
+  row.innerHTML = '';
+  for(let s = 1; s <= 3; s++){
+    const fill = s <= stars ? '#FFCB30' : '#E4E1EF';
+    const span = document.createElement('span');
+    span.innerHTML = starSVG(fill);
+    const svg = span.firstChild;
+    if(s <= stars) svg.classList.add('won');
+    row.appendChild(svg);
+  }
+  $('qFinishTitle').textContent = pct >= 0.8 ? 'Luar Biasa!' : (pct >= 0.5 ? 'Kerja Bagus!' : 'Tetap Semangat!');
+  $('qScoreText').textContent = 'Kamu menjawab benar ' + qScore + ' dari ' + QUIZ.length + ' soal. Nilai kamu: ' + (qScore * 10) + '.';
+  $('qFinalMsg').textContent = pct >= 0.8
+    ? 'Kamu Bintang Matematika sejati! FPB dan KPK sudah kamu kuasai.'
+    : (pct >= 0.5
+      ? 'Sedikit lagi sempurna! Coba mainkan lagi simulasi katak dan bingkisan, lalu ulangi kuisnya.'
+      : 'Jangan menyerah! Baca lagi materinya, mainkan simulasinya, dan coba lagi. Kamu pasti bisa!');
+  if(stars >= 3){ chime(); confetti(); }
+  else if(stars === 2){ beep(660,.12); setTimeout(()=>beep(880,.2),140); }
+}
+
+$('qRetry').addEventListener('click', startQuiz);
+
+/* ---------- Inisialisasi saat halaman dimuat ---------- */
+segInit($('segA'), 'a', () => resetKpkBoard());
+segInit($('segB'), 'b', () => resetKpkBoard());
+resetKpkBoard('Pilih panjang langkah kedua katak, lalu tekan <b>Mulai Melompat</b>!');
+resetFpb();
+startQuiz();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
